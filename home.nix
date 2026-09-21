@@ -48,6 +48,9 @@
       };
       floating.criteria = [
         { title = "Volume Control"; } # pavucontrol
+        # flameshot
+        { title = "Save screenshot"; }
+        { title = "Capture Launcher"; }
       ];
       keybindings =
         let
@@ -202,6 +205,16 @@
     signing.allowedSigners = ''
       alexandre@aborghi.fr ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAd7EVcjXuUbN0kNHvQV+QWZlzesqOIzlnFIwVSNs4cs alex@nixos-vm
     '';
+  };
+
+  services.flameshot = {
+    enable = true;
+    settings = {
+      General = {
+        savePath = "/home/alex/pics/screenshots";
+        startupLaunch = true;
+      };
+    };
   };
 
   # This value determines the Home Manager release that your
