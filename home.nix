@@ -38,6 +38,7 @@
     config = {
       modifier = "Mod1";
       terminal = "alacritty";
+      defaultWorkspace = "workspace number 1";
       input."*".xkb_layout = "fr";
       output."*".mode = "1920x1080";
       # Disable sway-bar because we're using waybar
