@@ -160,6 +160,7 @@
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           format = "{:%H:%M %d/%m/%Y}";
         };
+        tray.spacing = 10;
       }
     ];
   };
