@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -82,14 +77,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     initialPassword = "1234";
-  };
-
-  programs.firefox = {
-    enable = true;
-    languagePacks = [
-      "en-US"
-      "fr"
-    ];
   };
 
   environment.systemPackages = with pkgs; [

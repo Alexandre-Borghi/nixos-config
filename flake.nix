@@ -6,12 +6,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim.url = "github:nix-community/nixvim";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
       self,
       nixpkgs,
       home-manager,
+      nur,
       ...
     }:
     {
@@ -19,6 +24,7 @@
         modules = [
           ./configuration.nix
           home-manager.nixosModules.default
+          nur.modules.nixos.default
           {
             home-manager = {
               useGlobalPkgs = true;
