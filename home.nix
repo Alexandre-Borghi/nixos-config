@@ -183,6 +183,10 @@
     ll = "ls -lhF";
     la = "ls -lhFa";
     gs = "git status";
+    gd = "git diff";
+    ga = "git add";
+    gc = "git commit";
+    gl = "git log --oneline";
   };
 
   programs.alacritty = {
