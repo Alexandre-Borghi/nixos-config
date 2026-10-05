@@ -168,6 +168,7 @@
 
   home.packages = with pkgs; [
     btop
+    inputs.mistral-vibe.packages.${pkgs.system}.default
   ];
 
   programs.bash = {
@@ -507,6 +508,12 @@
       };
       thunderbird.enable = true;
     };
+  };
+
+  # Mistral Vibe
+  home.sessionVariables.VIBE_HOME = "${config.xdg.configHome}/vibe";
+  xdg.configFile."vibe/config.toml".source = (pkgs.formats.toml { }).generate "config.toml" {
+    theme = "rose-pine";
   };
 
   services.flameshot = {

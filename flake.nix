@@ -10,6 +10,11 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mistral-vibe = {
+      # Pin to v.2.25.5, see https://github.com/mistralai/mistral-vibe/issues/1129
+      url = "github:mistralai/mistral-vibe/v2.25.5";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
