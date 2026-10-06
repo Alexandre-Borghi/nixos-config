@@ -42,6 +42,7 @@
     systemd.enable = true;
     config = {
       modifier = "Mod1";
+      menu = "wmenu-run -f \"monospace Normal 14\"";
       terminal = "alacritty";
       defaultWorkspace = "workspace number 1";
       input."*".xkb_layout = "fr";
