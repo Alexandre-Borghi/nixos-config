@@ -169,7 +169,13 @@
 
   home.packages = with pkgs; [
     btop
+    gcc
     inputs.mistral-vibe.packages.${pkgs.system}.default
+    rustup
+
+    # Leptos
+    cargo-leptos
+    sass
   ];
 
   programs.bash = {
@@ -197,6 +203,15 @@
 
   programs.vim = {
     enable = true;
+  };
+
+  programs.cargo = {
+    enable = true;
+    package = null;
+    cargoHome = "${config.xdg.dataHome}/cargo";
+    settings = {
+      build.target-dir = "${config.xdg.cacheHome}/cargo-target";
+    };
   };
   programs.nixvim = {
     enable = true;
@@ -269,6 +284,10 @@
       semanticTokens.enable = true;
       servers = {
         nixd.enable = true;
+        rust_analyzer = {
+          enable = true;
+          config.settings."rust-analyzer".check.command = "clippy";
+        };
       };
     };
     diagnostic.settings = {
