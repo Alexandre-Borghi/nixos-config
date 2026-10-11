@@ -47,6 +47,11 @@
   networking.hostName = "msi";
   networking.networkmanager.enable = true;
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
   time.timeZone = "Europe/Paris";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -91,6 +96,7 @@
 
   environment.systemPackages = with pkgs; [
     alacritty
+    blueman
     libnotify
     nixfmt
     nixfmt-tree
