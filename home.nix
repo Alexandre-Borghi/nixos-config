@@ -173,8 +173,10 @@
   home.packages = with pkgs; [
     btop
     gcc
+    libreoffice
     inputs.mistral-vibe.packages.${pkgs.system}.default
     rustup
+    unzip
 
     # Leptos
     cargo-leptos
