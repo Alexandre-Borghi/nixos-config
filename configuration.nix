@@ -29,12 +29,22 @@
   boot.loader.systemd-boot.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices = {
-    crypt_vda2 = {
-      device = "/dev/vda2";
+    "crypt-sda" = {
+      device = "/dev/disk/by-uuid/d7f827e6-3f3d-47e2-84c6-4a9b4e8de6e9";
+    };
+    "crypt-sdb" = {
+      device = "/dev/disk/by-uuid/2d7ab199-15b8-4a84-aa80-c95040497a42";
     };
   };
+  boot.initrd.services.lvm.enable = true;
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 32 * 1024;
+    }
+  ];
 
-  networking.hostName = "nixos-vm";
+  networking.hostName = "msi";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Paris";
@@ -87,6 +97,8 @@
     pavucontrol
     vim
     wget
+    glib
+    gsettings-desktop-schemas
   ];
 
   environment.sessionVariables = {

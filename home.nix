@@ -47,6 +47,9 @@
       defaultWorkspace = "workspace number 1";
       input."*".xkb_layout = "fr";
       output."*".mode = "1920x1080";
+      output."HDMI-A-2".pos = "0 0";
+      output."HDMI-A-3".pos = "1920 0";
+      output."DP-1".pos = "3840 0";
       # Disable sway-bar because we're using waybar
       bars = [ ];
       window = {
@@ -313,6 +316,7 @@
     };
     signing.allowedSigners = ''
       alexandre@aborghi.fr ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAd7EVcjXuUbN0kNHvQV+QWZlzesqOIzlnFIwVSNs4cs alex@nixos-vm
+      alexandre@aborghi.fr ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAqwpuEIs4Cu54z8NCKqF4KxLdFktyPF+J23QNjxg2vI alex@msi
     '';
   };
 
@@ -554,6 +558,9 @@
     enable = true;
     startInBackground = true;
   };
+  systemd.user.services.nextcloud-client.Service.Environment = [
+    "XDG_DATA_DIRS=${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${config.home.profileDirectory}/share"
+  ];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

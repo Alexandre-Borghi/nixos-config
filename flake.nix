@@ -25,7 +25,7 @@
       ...
     }:
     {
-      nixosConfigurations.nixos-vm = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.msi = nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
           home-manager.nixosModules.default
