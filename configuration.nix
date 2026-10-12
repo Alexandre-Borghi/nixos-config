@@ -46,6 +46,10 @@
 
   networking.hostName = "msi";
   networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    8080
+    3000 # Web app testing from mobile devices on local networks
+  ];
 
   hardware.bluetooth = {
     enable = true;
