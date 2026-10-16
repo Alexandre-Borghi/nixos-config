@@ -43,6 +43,8 @@
     '';
   };
 
+  services.ssh-agent.enable = true;
+
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
