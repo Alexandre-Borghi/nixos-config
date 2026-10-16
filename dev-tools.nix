@@ -144,4 +144,7 @@
     gc = "git commit";
     gl = "git log --oneline";
   };
+
+  programs.opencode.enable = true;
+  programs.herdr.enable = true;
 }
