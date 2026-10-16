@@ -25,6 +25,12 @@
       ...
     }:
     {
+      # The portable development slice of home.nix (git, nixvim,
+      # shell), consumed both here and by external flakes — the infra
+      # fleet's devbox — through home-manager's extraSpecialArgs
+      # (requires at least the nixvim input).
+      homeManagerModules.dev-tools = ./dev-tools.nix;
+
       nixosConfigurations.msi = nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
