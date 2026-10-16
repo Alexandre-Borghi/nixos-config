@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -82,6 +82,15 @@
       wl-clipboard
       wmenu
     ];
+  };
+
+  # Screen sharing on Wayland (Firefox, etc.)
+  xdg.portal = {
+    config.sway.default = lib.mkForce [ "wlr" "gtk" ];
+    wlr.settings.screencast = {
+      chooser_cmd = "${pkgs.wlr-utils}/bin/wlr-chooser";
+      chooser_type = "simple";
+    };
   };
 
   services.gnome.gnome-keyring.enable = true;
