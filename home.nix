@@ -177,6 +177,7 @@
     inputs.mistral-vibe.packages.${pkgs.system}.default
     rustup
     unzip
+    dbeaver-bin
 
     # Leptos
     cargo-leptos
