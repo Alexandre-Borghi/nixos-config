@@ -555,6 +555,10 @@
       };
     };
   };
+  services.blueman-applet = {
+    enable = true;
+    systemdTargets = [ "sway-session.target" ];
+  };
 
   services.nextcloud-client = {
     enable = true;

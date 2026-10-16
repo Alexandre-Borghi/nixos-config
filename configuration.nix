@@ -92,6 +92,8 @@
     jack.enable = true;
   };
 
+  services.blueman.enable = true;
+
   users.users.alex = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
@@ -100,7 +102,6 @@
 
   environment.systemPackages = with pkgs; [
     alacritty
-    blueman
     libnotify
     nixfmt
     nixfmt-tree
