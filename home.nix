@@ -195,6 +195,43 @@
     enable = true;
   };
 
+  programs.ssh = {
+    enable = true;
+    # Take ownership of the global "Host *" defaults (previously
+    # injected by home-manager's enableDefaultConfig, now deprecated).
+    enableDefaultConfig = false;
+    settings = {
+      srv0 = {
+        HostName = "srv0.aborghi.fr";
+        Port = 22;
+        User = "alex";
+      };
+      devbox = {
+        HostName = "localhost";
+        Port = 2222;
+        User = "alex";
+        ProxyJump = "homeserver";
+        ForwardAgent = true;
+        # Pin the connection to the ed25519 key so exactly this key
+        # lands in the agent and gets forwarded to devbox.
+        IdentityFile = "~/.ssh/id_ed25519";
+        IdentitiesOnly = true;
+      };
+      "*" = {
+        AddKeysToAgent = "yes";
+        Compression = false;
+        ForwardAgent = false;
+        HashKnownHosts = false;
+        ServerAliveCountMax = 3;
+        ServerAliveInterval = 0;
+        UserKnownHostsFile = "~/.ssh/known_hosts";
+        ControlMaster = "no";
+        ControlPath = "~/.ssh/master-%r@%n:%p";
+        ControlPersist = "no";
+      };
+    };
+  };
+
   programs.cargo = {
     enable = true;
     package = null;
