@@ -191,9 +191,7 @@
     theme = "alabaster_dark";
   };
 
-  programs.vim = {
-    enable = true;
-  };
+  programs.vim.enable = true;
 
   programs.ssh = {
     enable = true;
@@ -458,6 +456,8 @@
       thunderbird.enable = true;
     };
   };
+
+  programs.obs-studio.enable = true;
 
   # Mistral Vibe
   home.sessionVariables.VIBE_HOME = "${config.xdg.configHome}/vibe";
