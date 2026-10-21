@@ -1,10 +1,13 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+
+  # Required by the NVIDIA driver (unfreeRedistributable license)
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings = {
     use-xdg-base-directories = true;
@@ -56,6 +59,32 @@
     powerOnBoot = true;
   };
 
+  # GTX 1050 Mobile (Pascal) — legacy 580 is the last driver branch
+  # supporting it; newer branches (590+) dropped Pascal.
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.graphics = {
+    extraPackages = [ pkgs.nvidia-vaapi-driver ]; # VA-API video decode (NVDEC)
+    #enable32Bit = true; # only if you add Steam/gaming later
+  };
+
+  hardware.nvidia = {
+    modesetting.enable = true; # required for Wayland
+    open = false; # Pascal isn't supported by the open kernel modules
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    powerManagement.enable = true; # suspend/resume services
+    prime = {
+      # PRIME render offload: sway stays on the iGPU, GPU-heavy apps
+      # are launched on the dGPU via `nvidia-offload <cmd>`.
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+
   time.timeZone = "Europe/Paris";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -74,6 +103,9 @@
     enable = true;
     xwayland.enable = true;
     wrapperFeatures.gtk = true;
+    # Silence sway's "Proprietary GPU drivers are not supported" nag:
+    # the NVIDIA driver is used deliberately, as a scanout-only secondary.
+    extraOptions = [ "--unsupported-gpu" ];
     extraPackages = with pkgs; [
       mako
       power-profiles-daemon # Used in waybar "power-profiles-daemon" module
@@ -124,6 +156,11 @@
   environment.sessionVariables = {
     # This removes .compose-cache from $HOME
     XCOMPOSECACHE = "$HOME/.cache/compose-cache";
+    # Wayland compositors: render on the iGPU (first device listed),
+    # use the 1060 only to drive the screens plugged into it.
+    # NOTE: wlroots splits this on ":", so by-path names (which contain
+    # PCI colons) cannot be used. card1 = i915, card2 = nvidia.
+    WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card2";
   };
 
   fonts = {
