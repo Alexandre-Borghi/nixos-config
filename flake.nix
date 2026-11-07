@@ -10,11 +10,6 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mistral-vibe = {
-      # Pin to v.2.25.5, see https://github.com/mistralai/mistral-vibe/issues/1129
-      url = "github:mistralai/mistral-vibe/v2.25.5";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     inputs@{
@@ -25,15 +20,12 @@
       ...
     }:
     {
-      # The portable development slice of home.nix (git, nixvim,
-      # shell), consumed both here and by external flakes — the infra
-      # fleet's devbox — through home-manager's extraSpecialArgs
-      # (requires at least the nixvim input).
-      homeManagerModules.dev-tools = ./dev-tools.nix;
+      nixosModules = import ./nixos;
+      homeManagerModules = import ./home-manager;
 
       nixosConfigurations.msi = nixpkgs.lib.nixosSystem {
         modules = [
-          ./configuration.nix
+          ./hosts/msi/configuration.nix
           home-manager.nixosModules.default
           nur.modules.nixos.default
           {
@@ -41,10 +33,11 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs; };
-              users.alex = ./home.nix;
+              users.alex = ./hosts/msi/home.nix;
             };
           }
         ];
+        specialArgs = { inherit inputs; };
       };
     };
 }
