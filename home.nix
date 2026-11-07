@@ -180,6 +180,7 @@
     rustup
     unzip
     dbeaver-bin
+    vlc
 
     # Leptos
     cargo-leptos
@@ -424,7 +425,7 @@
   accounts.calendar.accounts = {
     "Personal" = {
       remote = {
-        url = "https://cloud.aborghi.fr/remote.php/dav/calendars/alex/personal";
+        url = "https://cloud.aborghi.fr/remote.php/dav/calendars/alex/personal-2";
         userName = "alex";
         type = "caldav";
       };
@@ -486,6 +487,8 @@
   systemd.user.services.nextcloud-client.Service.Environment = [
     "XDG_DATA_DIRS=${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${config.home.profileDirectory}/share"
   ];
+
+  services.easyeffects.enable = true;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
