@@ -87,5 +87,13 @@
     '';
   };
 
+  programs.tmux = {
+    enable = true;
+    mouse = true;
+    clock24 = true;
+    keyMode = "vi";
+    focusEvents = true;
+  };
+
   programs.opencode.enable = true;
 }

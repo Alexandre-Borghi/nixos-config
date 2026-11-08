@@ -6,6 +6,7 @@
 
   programs.nixvim = {
     enable = true;
+    nixpkgs.source = inputs.nixpkgs;
     defaultEditor = true;
     globals = {
       mapleader = " ";
@@ -57,7 +58,69 @@
     plugins = {
       fzf-lua.enable = true;
       lspconfig.enable = true;
-      lsp-format.enable = true;
+      lsp-format = {
+        enable = true;
+        settings = {
+          # let Prettier handle formatting
+          typescript.exclude = [ "vtsls" ];
+          typescriptreact.exclude = [ "vtsls" ];
+          javascript.exclude = [ "vtsls" ];
+          javascriptreact.exclude = [ "vtsls" ];
+          vue.exclude = [ "vue_ls" ];
+        };
+      };
+
+      none-ls = {
+        enable = true;
+        sources = {
+          formatting.prettier.enable = true;
+        };
+      };
+
+      treesitter = {
+        enable = true;
+        settings = {
+          highlight.enable = true;
+          indent.enable = true;
+        };
+        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+          vue
+          typescript
+          tsx
+          javascript
+          css
+          scss
+          html
+          json
+          yaml
+          markdown
+          markdown-inline
+        ];
+      };
+
+      # Auto-close/rename HTML + Vue template tags
+      ts-autotag.enable = true;
+
+      blink-cmp = {
+        enable = true;
+        settings = {
+          sources = {
+            default = [
+              "lsp"
+              "path"
+              "snippets"
+              "buffer"
+            ];
+          };
+          keymap = {
+            preset = "default";
+          };
+        };
+      };
+
+      web-devicons.enable = true;
+      nvim-autopairs.enable = true;
+      which-key.enable = true;
     };
     lsp = {
       codelens.enable = true;
@@ -79,14 +142,71 @@
           enable = true;
           config.settings."rust-analyzer".check.command = "clippy";
         };
+        vtsls = {
+          config = {
+            filetypes = [
+              "javascript"
+              "javascriptreact"
+              "typescript"
+              "typescriptreact"
+              "vue"
+            ];
+          };
+        };
+        vue_ls.enable = true;
       };
+      keymaps = [
+        {
+          key = "gd";
+          lspBufAction = "definition";
+        }
+        {
+          key = "gr";
+          lspBufAction = "references";
+        }
+        {
+          key = "gt";
+          lspBufAction = "type_definition";
+        }
+        {
+          key = "gi";
+          lspBufAction = "implementation";
+        }
+        {
+          key = "K";
+          lspBufAction = "hover";
+        }
+        {
+          key = "<leader>rn";
+          lspBufAction = "rename";
+        }
+        {
+          key = "<leader>ca";
+          lspBufAction = "code_action";
+        }
+        {
+          key = "[d";
+          action = inputs.nixvim.lib.nixvim.mkRaw "function() vim.diagnostic.jump({ count = -1, float = true }) end";
+        }
+        {
+          key = "]d";
+          action = inputs.nixvim.lib.nixvim.mkRaw "function() vim.diagnostic.jump({ count = 1, float = true }) end";
+        }
+        {
+          key = "<leader>e";
+          action = inputs.nixvim.lib.nixvim.mkRaw "function() vim.diagnostic.open_float() end";
+        }
+      ];
     };
     diagnostic.settings = {
       virtual_text.virt_text_pos = "eol";
     };
     extraPackages = with pkgs; [
+      fd
       nixfmt
       nixfmt-tree
+      prettier
+      ripgrep
     ];
   };
 }
