@@ -25,9 +25,6 @@
       defaultWorkspace = "workspace number 1";
       input."*".xkb_layout = "fr";
       output."*".mode = "1920x1080";
-      output."HDMI-A-2".pos = "0 0";
-      output."HDMI-A-3".pos = "1920 0";
-      output."DP-1".pos = "3840 0";
       # Disable sway-bar because we're using waybar
       bars = [ ];
       window = {
