@@ -76,6 +76,7 @@
         };
     };
   };
+
   programs.waybar = {
     enable = true;
     systemd = {
@@ -146,6 +147,16 @@
         tray.spacing = 10;
       }
     ];
+  };
+
+  services.mako = {
+    enable = true;
+    settings = {
+      background-color = "#000000";
+      border-color = "#ffffff";
+      border-radius = 0;
+      default-timeout = 5 * 1000;
+    };
   };
 
   services.flameshot = {
