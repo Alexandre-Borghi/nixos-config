@@ -154,6 +154,15 @@
           };
         };
         vue_ls.enable = true;
+        tinymist = {
+          enable = true;
+          config = {
+            exportTarget = "html";
+            typstExtraArgs = [
+              "--features=bundle,html"
+            ];
+          };
+        };
       };
       keymaps = [
         {
