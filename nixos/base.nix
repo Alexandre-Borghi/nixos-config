@@ -87,7 +87,11 @@
 
   users.users.alex = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      "wheel"
+      "scanner"
+      "lp"
+    ];
     uid = 1000;
     initialPassword = "1234";
   };
@@ -110,4 +114,21 @@
     ];
     fontconfig.useEmbeddedBitmaps = true;
   };
+
+  # mDNS for printer discovery
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups-filters
+      cups-browsed
+    ];
+  };
+
+  hardware.sane.enable = true;
 }

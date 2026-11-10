@@ -213,6 +213,7 @@
   home.packages = with pkgs; [
     dbeaver-bin
     libreoffice
+    simple-scan
     vlc
   ];
 }
