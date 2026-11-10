@@ -93,6 +93,13 @@
     clock24 = true;
     keyMode = "vi";
     focusEvents = true;
+    extraConfig = ''
+      set -g @continuum-restore 'on'
+    '';
+    plugins = with pkgs.tmuxPlugins; [
+      resurrect
+      continuum
+    ];
   };
 
   programs.opencode.enable = true;
