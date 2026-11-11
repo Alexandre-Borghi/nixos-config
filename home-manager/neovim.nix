@@ -113,7 +113,7 @@
             ];
           };
           keymap = {
-            preset = "default";
+            preset = "enter";
           };
         };
       };
