@@ -46,7 +46,7 @@
           "${modifier}+Shift+Return" = "exec ${cfg.terminal}";
           "${modifier}+p" = "exec ${cfg.menu}";
           "${modifier}+Shift+c" = "kill";
-          "${modifier}+Shift+l" = "exec swaylock";
+          "${modifier}+Shift+l" = "exec swaylock -c 000000";
           "Mod4+b" = "exec firefox";
 
           "${modifier}+ampersand" = "workspace number 1";
@@ -148,7 +148,7 @@
 
   services.swayidle =
     let
-      lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
+      lock = "${pkgs.swaylock}/bin/swaylock -c 000000 --daemonize";
       display = status: "${pkgs.sway}/bin/swaymsg 'output * power ${status}'";
       minutes = 60;
     in
@@ -157,12 +157,12 @@
       timeouts = [
         {
           timeout = 5 * minutes;
-          command = lock;
-        }
-        {
-          timeout = 10 * minutes;
           command = display "off";
           resumeCommand = display "on";
+        }
+        {
+          timeout = 7 * minutes;
+          command = lock;
         }
         {
           timeout = 15 * minutes;
