@@ -53,6 +53,8 @@
           "${modifier}+Shift+l" = "exec swaylock -c 000000";
           "Mod4+b" = "exec firefox";
           "Print" = "exec ${pkgs.flameshot}/bin/flameshot gui";
+          "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
+          "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
 
           "${modifier}+ampersand" = "workspace number 1";
           "${modifier}+eacute" = "workspace number 2";
@@ -101,6 +103,7 @@
           "disk"
           "network"
           "power-profiles-daemon"
+          "backlight"
           "battery"
           "clock"
           "tray"
@@ -141,6 +144,21 @@
           format-linked = "{ifname} (No IP) 󰊗";
           format-disconnected = "Disconnected ⚠";
           format-alt = "{ifname}: {ipaddr}/{cidr}";
+        };
+        backlight = {
+          format = "{percent}% {icon}";
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
+          min-brightness = 1;
         };
         clock = {
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
