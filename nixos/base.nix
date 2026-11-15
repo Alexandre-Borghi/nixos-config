@@ -88,9 +88,10 @@
   users.users.alex = {
     isNormalUser = true;
     extraGroups = [
-      "wheel"
-      "scanner"
       "lp"
+      "networkmanager"
+      "scanner"
+      "wheel"
     ];
     uid = 1000;
     initialPassword = "1234";
