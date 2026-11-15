@@ -17,7 +17,10 @@
   wayland.windowManager.sway = {
     enable = true;
     xwayland = true;
-    systemd.enable = true;
+    systemd = {
+      enable = true;
+      xdgAutostart = true;
+    };
     config = {
       modifier = "Mod1";
       menu = "wmenu-run -f \"monospace Normal 14\"";
@@ -36,6 +39,7 @@
         # flameshot
         { title = "Save screenshot"; }
         { title = "Capture Launcher"; }
+        { title = "flameshot"; }
       ];
       keybindings =
         let
@@ -48,6 +52,7 @@
           "${modifier}+Shift+c" = "kill";
           "${modifier}+Shift+l" = "exec swaylock -c 000000";
           "Mod4+b" = "exec firefox";
+          "Print" = "exec ${pkgs.flameshot}/bin/flameshot gui";
 
           "${modifier}+ampersand" = "workspace number 1";
           "${modifier}+eacute" = "workspace number 2";
